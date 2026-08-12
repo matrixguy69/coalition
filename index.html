@@ -9,6 +9,7 @@
 <body>
 
 <div id="ct-root">
+  <div class="ct-bgfx" aria-hidden="true"></div>
   <div class="ct-wrap">
 
     <div id="setupBanner" class="ct-setup hidden">
@@ -22,6 +23,14 @@
         <div class="ct-brand-sub">Minecraft PvP Rankings</div>
       </div>
       <div class="ct-header-actions">
+        <button class="ct-iconlink" id="openInfo" title="Tier system & testing info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><circle cx="12" cy="8" r=".6" fill="currentColor" stroke="none"/></svg>
+          <span>Info</span>
+        </button>
+        <button class="ct-iconlink discord" id="openDiscord" title="Join our Discord">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.3A17.6 17.6 0 0 0 15.9 4l-.3.5c1.8.5 2.8 1.2 2.8 1.2a12.3 12.3 0 0 0-10.8 0S8.6 5 10.4 4.5L10.1 4a17.6 17.6 0 0 0-4.4 1.3S3 9.6 3 13.8a17.7 17.7 0 0 0 4.6 2.1l.9-1.3a9.2 9.2 0 0 1-1.5-.7l.4-.3a12.6 12.6 0 0 0 9.2 0l.4.3a9.2 9.2 0 0 1-1.5.7l.9 1.3A17.6 17.6 0 0 0 21 13.8c0-4.2-2.7-8.5-2.7-8.5zM9.7 12.4c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4zm4.6 0c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4z"/></svg>
+          <span>Discord</span>
+        </button>
         <button class="ct-adminbtn" id="openAdmin">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
           <span id="adminLabel">Admin Login</span>
@@ -51,6 +60,7 @@
   </div>
 </div>
 
+<!-- Add / Edit player -->
 <div class="ct-overlay hidden" id="ctOverlay">
   <div class="ct-modal">
     <h2 id="ctModalTitle">ADD PLAYER<button id="ctCloseModal" aria-label="Close">&times;</button></h2>
@@ -62,6 +72,10 @@
         <span id="ctPreviewLabel">Skin preview</span>
       </div>
     </div>
+    <div class="ct-field">
+      <label for="ctRegionInput">Region <span class="ct-optional">(optional)</span></label>
+      <input type="text" id="ctRegionInput" placeholder="e.g. NA, EU, AS, OCE" autocomplete="off" maxlength="16">
+    </div>
     <div class="ct-hint">Set a tier per gamemode. Leave as &ldquo;Untested&rdquo; if the player hasn&rsquo;t been ranked there.</div>
     <div class="ct-grid" id="ctGamemodeGrid"></div>
     <div class="ct-modal-actions">
@@ -71,6 +85,7 @@
   </div>
 </div>
 
+<!-- Admin login -->
 <div class="ct-overlay hidden" id="ctLoginOverlay">
   <div class="ct-modal ct-modal-sm">
     <h2>ADMIN LOGIN<button id="ctCloseLogin" aria-label="Close">&times;</button></h2>
@@ -87,6 +102,22 @@
       <span></span>
       <button class="ct-save" id="ctLoginBtn">Log in</button>
     </div>
+  </div>
+</div>
+
+<!-- Player profile card -->
+<div class="ct-overlay hidden" id="ctProfileOverlay">
+  <div class="ct-modal ct-modal-sm ct-profile-modal">
+    <button class="ct-profile-close" id="ctCloseProfile" aria-label="Close">&times;</button>
+    <div class="ct-profile-body" id="ctProfileBody"></div>
+  </div>
+</div>
+
+<!-- Info / rules panel -->
+<div class="ct-overlay hidden" id="ctInfoOverlay">
+  <div class="ct-modal ct-info-modal">
+    <h2>TIER SYSTEM &amp; INFO<button id="ctCloseInfo" aria-label="Close">&times;</button></h2>
+    <div class="ct-info-body" id="ctInfoBody"></div>
   </div>
 </div>
 

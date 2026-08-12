@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coalition Tiers — Minecraft PvP Rankings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="ct-root">
+  <div class="ct-wrap">
+
+    <div id="setupBanner" class="ct-setup hidden">
+      <strong>Setup needed:</strong> edit <code>config.js</code> with your Supabase project URL and anon key,
+      and run <code>supabase-schema.sql</code> in the Supabase SQL editor. See README.md.
+    </div>
+
+    <div class="ct-header">
+      <div class="ct-brand">
+        <div class="ct-brand-mark">COALITION <span class="accent">TIERS</span></div>
+        <div class="ct-brand-sub">Minecraft PvP Rankings</div>
+      </div>
+      <div class="ct-header-actions">
+        <button class="ct-adminbtn" id="openAdmin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <span id="adminLabel">Admin Login</span>
+        </button>
+        <button class="ct-addbtn hidden" id="openAdd"><span class="plus">+</span> Add Player</button>
+      </div>
+    </div>
+
+    <nav class="ct-tabs" id="ctTabs"></nav>
+
+    <div class="ct-toolbar">
+      <input class="ct-search" id="ctSearch" type="text" placeholder="Search player...">
+      <div class="ct-toolbar-right">
+        <div class="ct-viewtoggle hidden" id="ctViewToggle">
+          <button class="ct-vbtn active" data-view="ranked">Ranked</button>
+          <button class="ct-vbtn" data-view="board">Tier Board</button>
+        </div>
+        <div class="ct-tabmeta" id="ctTabMeta"></div>
+      </div>
+    </div>
+
+    <div class="ct-panel" id="ctPanel">
+      <div class="ct-empty">Loading leaderboard...</div>
+    </div>
+
+    <div class="ct-footnote">Coalition Tiers &middot; data synced live via Supabase.</div>
+  </div>
+</div>
+
+<div class="ct-overlay hidden" id="ctOverlay">
+  <div class="ct-modal">
+    <h2 id="ctModalTitle">ADD PLAYER<button id="ctCloseModal" aria-label="Close">&times;</button></h2>
+    <div class="ct-field">
+      <label for="ctNameInput">Minecraft username</label>
+      <input type="text" id="ctNameInput" placeholder="e.g. Technoblade" autocomplete="off">
+      <div class="ct-preview">
+        <img id="ctSkinPreview" src="" alt="">
+        <span id="ctPreviewLabel">Skin preview</span>
+      </div>
+    </div>
+    <div class="ct-hint">Set a tier per gamemode. Leave as &ldquo;Untested&rdquo; if the player hasn&rsquo;t been ranked there.</div>
+    <div class="ct-grid" id="ctGamemodeGrid"></div>
+    <div class="ct-modal-actions">
+      <button class="ct-delete-link hidden" id="ctDeleteBtn">Remove player</button>
+      <button class="ct-save" id="ctSaveBtn" disabled>Save player</button>
+    </div>
+  </div>
+</div>
+
+<div class="ct-overlay hidden" id="ctLoginOverlay">
+  <div class="ct-modal ct-modal-sm">
+    <h2>ADMIN LOGIN<button id="ctCloseLogin" aria-label="Close">&times;</button></h2>
+    <div class="ct-field">
+      <label for="ctLoginEmail">Email</label>
+      <input type="email" id="ctLoginEmail" autocomplete="username" placeholder="you@example.com">
+    </div>
+    <div class="ct-field">
+      <label for="ctLoginPassword">Password</label>
+      <input type="password" id="ctLoginPassword" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+    </div>
+    <div class="ct-login-error hidden" id="ctLoginError"></div>
+    <div class="ct-modal-actions">
+      <span></span>
+      <button class="ct-save" id="ctLoginBtn">Log in</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

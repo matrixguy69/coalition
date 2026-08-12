@@ -47,6 +47,8 @@ You now have exactly one account that can log in, and it's yours.
    ```
    The anon key is meant to be public/client-side — it's safe because the RLS
    policies from step 2 control what it's actually allowed to do.
+4. Optional: also in `config.js`, set `DISCORD_INVITE_URL` to your server's invite
+   link if you want the Discord header button to work.
 
 ## 5. Test it locally (optional but recommended)
 
@@ -95,13 +97,19 @@ Every future `git push` to `main` auto-redeploys.
 
 - **View**: open the site, browse the **Overall** tab (ranked, with titles) or any
   gamemode tab. Each gamemode tab has a **Ranked / Tier Board** toggle — Ranked is a
-  sorted table, Tier Board is the column-per-tier view.
+  sorted table, Tier Board is the column-per-tier view. Click any player to open
+  their **profile card** — skin, title, region (if set), a NameMC link, their rank
+  in every tab they're ranked in, and their full tier chip row.
+- **Info panel**: the **Info** button in the header shows the S–F tier grade mapping,
+  the HT3 requirement note, per-gamemode FT testing requirements, and the point
+  thresholds for each title — all pulled straight from `data.js`.
+- **Discord button**: opens `DISCORD_INVITE_URL` from `config.js` in a new tab.
 - **Log in**: click **Admin Login** top-right, enter the email/password from step 3.
 - **Add a player**: once logged in, click **+ Add Player**, type their exact Minecraft
-  username (this is also used to fetch their skin), set a tier per gamemode
-  (leave "Untested" for modes they haven't been ranked in), **Save player**.
+  username (also used to fetch their skin), optionally set a region, set a tier per
+  gamemode (leave "Untested" for modes they haven't been ranked in), **Save player**.
 - **Edit / remove**: hover a row (or the Tier Board) — edit/trash icons appear for admins.
-  Clicking a name in the Tier Board also opens edit.
+  You can also open a player's profile card and click **Edit player** at the bottom.
 - **Reorder within a tier**: in Tier Board view, use the up/down arrows next to a
   name to move them within that tier column (cosmetic ordering only — doesn't
   change points, since points come from the tier itself).
@@ -111,13 +119,21 @@ Every future `git push` to `main` auto-redeploys.
 
 Open `data.js` — no other file needs to change:
 
-- **Points per tier / add or remove tiers** → edit the `TIERS` array.
+- **Points per tier / add or remove tiers** → edit the `TIERS` array (`grade` is the
+  S/A/B/C/D/F label shown in the Info panel).
 - **Gamemodes** → edit the `GAMEMODES` array (`key` must be a short lowercase
-  slug with no spaces; `label` is what's shown).
+  slug with no spaces; `label` is what's shown). Adding a new gamemode here
+  automatically adds its tab, its column in Add/Edit Player, and a slot in the
+  Info panel's FT table (add a matching entry to `TESTING_INFO.ftRequirements`
+  or it just won't show a row there).
 - **Titles shown on the Overall tab** → edit `TITLES` (thresholds are total
-  points across all gamemodes; max right now is 30 × 7 = 210).
+  points across all gamemodes; max right now is 30 × 10 = 300).
+- **Tier system grades / HT3 rule / FT requirements** → edit `TESTING_INFO`.
 
-Colors, fonts, and layout live in `style.css` if you want to restyle.
+To add a matching icon for a brand-new gamemode key, add an entry to the `ICONS`
+object near the top of `app.js` (any inline SVG path data, using `currentColor`).
+
+Colors, fonts, and layout live in `style.css` if you want to restyle further.
 
 ## Troubleshooting
 
